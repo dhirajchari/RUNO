@@ -43,4 +43,6 @@ RUNO needs a few environmet variable settings befor to run work correctly.
  Specifies fundamental(rc|.ini) file with vnd.sun.star.pathname protocol.
  e.g. vnd.sun.star.pathname:/opt/ooo-dev3/program/fundamentalrc
 
-
+= TODOS
+* Test with libreoffice
+* Add unit tests
