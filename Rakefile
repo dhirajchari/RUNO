@@ -19,9 +19,9 @@
 require 'rbconfig'
 require 'rake/packagetask'
 require 'rake/clean'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'rubygems'
-require 'rake/rdoctask'
+require 'rdoc/task'
 
 # Build packages.
 # Gem file for RPC.
@@ -189,7 +189,7 @@ if host.include? 'linux'
   LIBRUBYARG = c['LIBRUBYARG']
   runo_libs = "-lruno"
   
-  uno_link_flags = "'-Wl,-rpath,$ORIGIN' -Wl,--version-script,#{sdk_home}/settings/component.uno.map"
+  uno_link_flags = "'-Wl,-rpath,$ORIGIN'"
   
   ure_types = "#{ure_home}/share/misc/types.rdb"
   
@@ -310,8 +310,8 @@ task :header do
   unless File.exists?(CPPUMAKER_FLAG)
     puts "flag for cppumaker does not exist. starting cppumaker..."
     
-    office_types = "#{base_path}/offapi.rdb"
-    sh "#{CPPUMAKER} -Gc -BUCR -O#{CPPU_INCLUDE} -T\"#{types.join(';')}\" \"#{ure_types}\" \"#{office_types}\""
+    office_types = "#{base_path}/types/offapi.rdb"
+    sh "#{CPPUMAKER} -Gc -O#{CPPU_INCLUDE} -T\"#{types.join(';')}\" \"#{ure_types}\" \"#{office_types}\""
     sh "echo > #{CPPUMAKER_FLAG}"
   end
 end
@@ -343,7 +343,7 @@ RubyUNO is native bridge between Ruby and UNO.
 EOF
 end
 
-Rake::GemPackageTask.new(spec) do |t|
+Gem::PackageTask.new(spec) do |t|
 end
 
 file GEM_LIB_UNO_RB => [LIB_DIR] do |t|
@@ -595,7 +595,8 @@ end
 # Documents
 
 rule '.html' => '.rd' do |t|
-  sh "#{RD2} #{t.source} > #{t.name}"
+  # Uncomment if you want to generate html documentation
+  # sh "#{RD2} #{t.source} > #{t.name}"
 end
 
 task :rd_docs => [*HTML_DOCS]
