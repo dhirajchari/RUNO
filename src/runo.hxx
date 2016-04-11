@@ -67,6 +67,8 @@
 #define OUSTRING_CONST(str)\
     OUString(RTL_CONSTASCII_USTRINGPARAM(str))
 
+extern "C" void Init_runo();
+
 namespace runo
 {
 

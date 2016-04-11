@@ -1189,6 +1189,10 @@ extern "C"
 void
 Init_runo(void)
 {
+  static int isInitialized = 0;
+
+  if (!isInitialized)
+  {
     VALUE Runo;
     
     Runo = rb_define_module("Uno");
@@ -1290,6 +1294,9 @@ Init_runo(void)
     rb_define_const(Runo, ADAPTED_OBJECTS, rb_ary_new());
     
     init_external_encoding();
+
+    isInitialized = 1;
+  }
 }
 }
 
